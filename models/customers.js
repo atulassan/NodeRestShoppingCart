@@ -1,59 +1,107 @@
 var express = require('express');
 var router = express.Router();
 
-//show all categories
-router.get('/api/v1/categories', (req, res) => {
-    let sql = "SELECT * FROM categories";
+console.log(fns.verify('testtest'));
+
+//show all Customers
+router.get('/api/v1/customers', (req, res) => {
+    let sql = "SELECT * FROM customers";
     let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
-        res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        if (err) {
+            console.log("error ocurred", err);
+            res.send(JSON.stringify({ "status": 400, "error": err }));
+        } else {
+            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        }
     });
 });
 
 
-//show single category
-router.get('/api/v1/categories/:id', function (req, res) {
-    let sql = "SELECT * FROM categories WHERE id=" + req.params.id;
+//show single Customer
+router.get('/api/v1/customers/:id', function (req, res) {
+
+    // check Valid user
+    fns.checkAvailCust(req, res);
+
+    let sql = "SELECT * FROM customers WHERE CustomerID=" + req.params.id;
     let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
+        //if (err) throw err;
         var numrows = results.length;
-        if (numrows > 0) {
-            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        console.log(numrows);
+        if (err || parseInt(numrows) == 0) {
+            console.log("error ocurred", err);
+            if (numrows === 0) {
+                res.send(JSON.stringify({ "status": 400, "error": "Requrest Data Is not Valid", "response": "No Data" }));
+                return;
+            }
+            res.send(JSON.stringify({ "status": 400, "error": err }));
         } else {
-            res.send(JSON.stringify({ "status": 200, "error": "Requrest Data Is not Valid", "response": "No Data" }));
+            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
         }
 
     });
 });
 
-//add New category 
-router.post('/api/v1/categories', (req, res) => {
+//add New Customer 
+router.post('/api/v1/customers', (req, res) => {
 
-    let data = { name: req.body.name, type: req.body.type };
-    let sql = "INSERT INTO categories SET ?";
+    var Password = fns.saltHashPassword(req.body.PassWord, true);
+
+    //Check Available User
+    fns.checkAvailUser(req, res);
+
+    let data = {
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        Phone: req.body.Phone,
+        Email: req.body.Email,
+        UserName: req.body.UserName,
+        PassWord: Password[1],
+        Token: Password[0],
+        Status: req.body.Status
+    };
+
+    let sql = "INSERT INTO customers SET ?";
     let query = conn.query(sql, data, (err, results) => {
-        if (err) throw err;
-        res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        if (err) {
+            console.log("error ocurred", err);
+            res.send(JSON.stringify({ "status": 400, "error": err }));
+        } else {
+            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        }
     });
 
 });
 
-//update category
-router.put('/api/v1/categories/:id', (req, res) => {
-    let sql = "UPDATE categories SET name='" + req.body.name + "', type='" + req.body.type + "' WHERE id='" + req.params.id + "'";
-    //let sql = "UPDATE product SET product_name='" + req.body.product_name + "', product_price='" + req.body.product_price + "' WHERE product_id=" + req.params.id;
+//update Customer
+router.put('/api/v1/customers/:id', (req, res) => {
+
+    // check Valid user
+    fns.checkAvailCust(req, res);
+
+    let sql = "UPDATE customers SET  FirstName='" + req.body.FirstName + "', LastName='" + req.body.LastName + "', Phone='" + req.body.Phone + "', EMail='" + req.body.Email + "', UserName='" + req.body.UserName + "', PassWord='" + req.body.PassWord + "', Status='" + req.body.Status + "' WHERE CustomerID='" + req.params.id + "'";
+    //let sql = "UPDATE products SET product_name='" + req.body.product_name + "', product_price='" + req.body.product_price + "' WHERE product_id=" + req.params.id;
     let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
-        res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        if (err) {
+            console.log("error ocurred", err);
+            res.send(JSON.stringify({ "status": 400, "error": err }));
+        } else {
+            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        }
     });
 });
 
-//Delete category
-router.delete('/api/v1/categories/:id', (req, res) => {
-    let sql = "DELETE FROM categories WHERE id=" + req.params.id + "";
+//Delete Customer
+router.delete('/api/v1/customers/:id', (req, res) => {
+    let sql = "DELETE FROM customers WHERE CustomerID=" + req.params.id + "";
     let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
-        res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        if (err) {
+            console.log("error ocurred", err);
+            res.send(JSON.stringify({ "status": 400, "error": err }));
+        } else {
+            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+        }
+
     });
 });
 

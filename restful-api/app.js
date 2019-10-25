@@ -5,15 +5,13 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require("morgan"),
     compression = require('compression'),
-    myConnection = require('express-myconnection'),
-    jwt = require('jsonwebtoken');
+    myConnection = require('express-myconnection');
 
 /**
  * Store database credentials in a separate config.js file
  * Load the file/module and its values
  */
-global.config = require('./config');
-global.fns = require('./common/functions');
+var config = require('./config');
 
 var dbOptions = {
     host: config.db.host,
