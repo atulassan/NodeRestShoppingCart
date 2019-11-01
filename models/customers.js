@@ -8,6 +8,18 @@ Customers = {
 
         var Password = utls.saltHashPassword(req.body.PassWord, true);
 
+        //Check Available User
+        utls.checkAvailUser(req, res, function(err, numrows) {
+            console.log(err);
+            console.log(numrows);
+            if(numrows) {
+                res.status(400).send(JSON.stringify({ "status": 400, 'message': 'User is Already Registered' }));
+                return;
+            }  
+        });
+
+        console.log('yes traveling');
+
         let data = {
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,

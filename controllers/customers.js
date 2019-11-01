@@ -1,9 +1,6 @@
 var Customers = require('../models/customers');
 
-exports.create = (req, res, next) => {
-
-    //Check Available User
-    utls.checkAvailUser(req, res, next);
+exports.create = (req, res) => {
 
     Customers.create(req, res, function (err, results) {
         if (err) {

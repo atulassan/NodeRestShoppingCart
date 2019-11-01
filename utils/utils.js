@@ -22,35 +22,31 @@ utls = {
     getToken: function () {
         return crypto.randomBytes(16).toString('base64');
     },
-    checkAvailUser: function (req, res, next) {
+    checkAvailUser: function (req, res, callback) {
         var numrows = 0;
         //let sql = "Select * FROM customers WHERE Phone='" +req.body.Phone+ "' AND Email='"+req.body.Email+"'";
-        let sql = "Select * FROM customers WHERE Email='" + req.body.Email + "'";
-        let query = conn.query(sql, (err, results) => {
+        var msql = "Select * FROM customers WHERE Email='" + req.body.Email + "'";
+
+        conn.query(msql, (err, results) => {
+
             if (err) {
                 console.log("error ocurred", err);
-                res.send(JSON.stringify({ "status": 400, "error": err }));
+                callback(err, null);
             }
-
             numrows += results.length;
-            console.log(numrows);
             if (parseInt(numrows) > 0) {
-                res.status(400).send(JSON.stringify({ "status": 400, 'message': 'User is Already Registered' }));
-                return;
+                callback(null, numrows);
             }
         });
-        next();
     },
-    checkAvailCust: function (req, res) {
+    checkAvailCust: function (req, res, callback) {
         var numrows = 0;
-        //console.log('testing');
-        //let sql = "Select * FROM customers WHERE Phone='" +req.body.Phone+ "' AND Email='"+req.body.Email+"'";
-        let sql = "Select * FROM customers WHERE CustomerID='" + req.params.id + "'";
-        console.log(sql);
-        let query = conn.query(sql, (err, results) => {
-            console.log('testing22');
+        let msql = "Select * FROM customers WHERE CustomerID='" + req.params.id + "'";
+        console.log(msql);
+        conn.query(msql, (err, results) => {
             if (err) {
-                throw err;
+                res.send(JSON.stringify({ "status": 400, "error": err }));
+                return;
             }
             //console.log(results);
             numrows += results.length;
