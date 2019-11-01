@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-fns = {
+utls = {
     verify: function (b1 = "") {
         return b1;
     },
@@ -22,26 +22,24 @@ fns = {
     getToken: function () {
         return crypto.randomBytes(16).toString('base64');
     },
-    checkAvailUser: function (req, res) {
-        var numrows = '';
-        var tst = 'testing';
-        //console.log('testing');
+    checkAvailUser: function (req, res, next) {
+        var numrows = 0;
         //let sql = "Select * FROM customers WHERE Phone='" +req.body.Phone+ "' AND Email='"+req.body.Email+"'";
         let sql = "Select * FROM customers WHERE Email='" + req.body.Email + "'";
-        console.log(sql);
         let query = conn.query(sql, (err, results) => {
-            console.log('testing22');
             if (err) {
-                throw err;
+                console.log("error ocurred", err);
+                res.send(JSON.stringify({ "status": 400, "error": err }));
             }
-            //console.log(results);
+
             numrows += results.length;
+            console.log(numrows);
             if (parseInt(numrows) > 0) {
-                res.status(400).send(JSON.stringify({ "status": 400, 'message': 'Request User Already Registered' }));
-                console.log('111');
+                res.status(400).send(JSON.stringify({ "status": 400, 'message': 'User is Already Registered' }));
                 return;
             }
         });
+        next();
     },
     checkAvailCust: function (req, res) {
         var numrows = 0;
@@ -64,4 +62,4 @@ fns = {
     }
 }
 
-module.exports = fns;
+module.exports = utls;

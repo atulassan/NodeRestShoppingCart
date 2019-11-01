@@ -13,7 +13,7 @@ var express = require('express'),
  * Load the file/module and its values
  */
 global.config = require('./config');
-global.fns = require('./common/functions');
+global.utls = require('./utils/utils');
 
 var dbOptions = {
     host: config.db.host,
@@ -49,14 +49,18 @@ app.get('/', function (req, res) {
 });
 
 //route Model
-var customers = require('./models/customers');
+//var customers = require('./models/customers');
 var categories = require('./models/categories');
 var products = require('./models/products');
 
+var cnc = require('./routes/index');
+
 //Middlewares
-app.use(customers); //Customers Router Model Connect Middleware
+//app.use(customers); //Customers Router Model Connect Middleware
 app.use(categories); //Categories Router Model Connect Middleware
 app.use(products); //Products Router Model Connect Middleware
+
+app.use(cnc);
 
 app.use(morgan('dev')); //develop morgan
 app.use(compression()); // Compress all Responses
