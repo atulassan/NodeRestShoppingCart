@@ -49,18 +49,14 @@ app.get('/', function (req, res) {
 });
 
 //route Model
-//var customers = require('./models/customers');
+var customers = require('./models/customers');
 var categories = require('./models/categories');
 var products = require('./models/products');
 
-var cnc = require('./routes/index');
-
 //Middlewares
-//app.use(customers); //Customers Router Model Connect Middleware
+app.use(customers); //Customers Router Model Connect Middleware
 app.use(categories); //Categories Router Model Connect Middleware
 app.use(products); //Products Router Model Connect Middleware
-
-app.use(cnc);
 
 app.use(morgan('dev')); //develop morgan
 app.use(compression()); // Compress all Responses

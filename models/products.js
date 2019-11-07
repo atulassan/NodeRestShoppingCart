@@ -3,6 +3,9 @@ var router = express.Router();
 
 //show all products
 router.get('/api/v1/products', (req, res) => {
+
+    console.log(utls.getToken);
+    
     let sql = "SELECT * FROM products";
     let query = conn.query(sql, (err, results) => {
         if (err) {

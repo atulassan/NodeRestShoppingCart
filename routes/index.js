@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var Task = require('../controllers/task');
-var Customers = require('../controllers/customers');
+var Task = require('../models/task');
+var Customers = require('../models/customers');
 
 //Task Route
 router.post('/api/v1/task', Task.create);
