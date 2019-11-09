@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 23, 2019 at 02:36 PM
+-- Generation Time: Nov 09, 2019 at 06:32 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.40
 
@@ -70,20 +70,17 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `Status` tinyint(2) NOT NULL,
   `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`CustomerID`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`CustomerID`, `FirstName`, `LastName`, `Phone`, `Email`, `UserName`, `PassWord`, `Token`, `Status`, `Created`) VALUES
-(1, 'Athavullah1', 'Atulassan', '9876543210', 'atulassan007@gmail.com', 'atulassan007', 'atul19c!@#', NULL, 1, '2019-10-22 10:57:26'),
-(2, 'Athavullah', 'Atulassan', '9876543210', 'atulassan007@gmail.com', 'atulassan007', 'atul19c!@#', NULL, 1, '2019-10-22 10:58:05'),
-(3, 'Athavullah', 'Atulassan', '9876543210', 'atulassan007@gmail.com', 'atulassan007', 'Gd6+RC2rto6mKkXGaFbnwg==$kqUYlimstvABfEr+BkizHWjF63sGemXWp1Ec2R415M4OcmzWCyChShLR/rScxZcfxkvXR26VDrg', NULL, 1, '2019-10-23 05:33:42'),
-(4, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', 'Password[1]', 'Password[0]', 1, '2019-10-23 08:04:10'),
-(5, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', 'Password[1]', 'Password[0]', 1, '2019-10-23 08:07:19'),
-(6, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', '4KObT2RA7LvQ3QNDxWqsfQ==$cBIOKcFKbhcAfAh3cMCpumr9wPSURFJ3tD4SzGgaoKWbJvLXDYEmkuJ62+sqMVUbz21G9YWx3M9', '4KObT2RA7LvQ3QNDxWqsfQ==', 1, '2019-10-23 08:08:34'),
-(7, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', 'rQDxn8aOIpXRDXNqvrK6Zw==$QudwzhvQ5km0kNWbxhD3VPWq1AtKwqJPgklmvYaGzNZA2mMcvF3Hp3MjXPNXi6P7RYDZB9k3v0j', 'rQDxn8aOIpXRDXNqvrK6Zw==', 1, '2019-10-23 09:32:36');
+(1, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', 'aHGBvwe93Rhx60aq51SkGg==$i1A9Jy7G6AQa5X88PBC58H/JKciS1+uaVxNMwSGS6LmvlXL9XbywXYXgF4pI8ciAQ3qFYMoArrU', 'aHGBvwe93Rhx60aq51SkGg==', 0, '2019-11-07 09:13:30'),
+(2, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', '77v4oxQyWzRZGx2ItiWmMw==$aVTrkBb9gkbaRm/BES2aGL74SBKTNLwu68aaAaMSbAWm0VUsFe9iP6gTcRd1H3q9SG2AF7T7Tl2', '77v4oxQyWzRZGx2ItiWmMw==', 0, '2019-11-07 09:13:43'),
+(3, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', 'uv6ISdAQXX+MN0oOi7wSfQ==$gUesSGid8BKHL+ZC7gazauoOxG/w8J2fdDKHFeUx3V0T7E/ex4cN5047CbeKQdWoBCBzeGtRsfO', 'uv6ISdAQXX+MN0oOi7wSfQ==', 0, '2019-11-07 09:24:48'),
+(4, 'Atulassan', 'Athavullah', '9876543210', 'atulassan777@gmail.com', 'atulassan777', '1WsrEcv1Sc8NU5KOurYk8g==$Ropbrr35eiZlWM8qh3z7+s3sHmXB2Azh05WznCYK0PAVazI82XVvjU4qq/t+g+Y+1k+4+B6KHmW', '1WsrEcv1Sc8NU5KOurYk8g==', 0, '2019-11-07 09:39:06');
 
 -- --------------------------------------------------------
 
