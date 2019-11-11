@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
+const { sendEmail } = require('../utils/mail/index');
 
 //show all Customers
 router.get('/api/v1/customers', (req, res) => {
@@ -70,6 +70,8 @@ router.post('/api/v1/customers', (req, res) => {
                     console.log("error ocurred", err);
                     res.send(JSON.stringify({ "status": 400, "error": err }));
                 } else {
+                    //getEmailData(to,name,token,type,actionData);
+                    sendEmail(data.Email,data.FirstName, data.Token,"cusActivate", data);
                     res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
                 }
             });

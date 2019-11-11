@@ -15,6 +15,7 @@ var express = require('express'),
  */
 global.config = require('./config');
 global.utls = require('./utils/utils');
+global.sendEmail = require('./utils/mail/index');
 
 var dbOptions = {
     host: config.db.host,
