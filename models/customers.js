@@ -50,9 +50,10 @@ router.post('/api/v1/customers', (req, res) => {
     //Check Available User
     utls.checkAvailUser(req, res, function(response) {
         console.log('666');
+        console.log(response);
         if(response) {
             console.log('777');
-            let indata = {
+            let data = {
                 FirstName: req.body.FirstName,
                 LastName: req.body.LastName,
                 Phone: req.body.Phone,
@@ -64,7 +65,7 @@ router.post('/api/v1/customers', (req, res) => {
             };
         
             let sql = "INSERT INTO customers SET ?";
-            let query = conn.query(sql, indata, (err, results) => {
+            let query = conn.query(sql, data, (err, results) => {
                 if (err) {
                     console.log("error ocurred", err);
                     res.send(JSON.stringify({ "status": 400, "error": err }));

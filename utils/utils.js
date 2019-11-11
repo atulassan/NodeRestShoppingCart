@@ -28,6 +28,8 @@ utls = {
         //let sql = "Select * FROM customers WHERE Phone='" +req.body.Phone+ "' AND Email='"+req.body.Email+"'";
         var msql = "Select * FROM customers WHERE Email='" + req.body.Email + "'";
 
+        console.log(msql);
+
         conn.query(msql, (err, results) => {
             console.log('222');
             if (err) {
@@ -37,17 +39,20 @@ utls = {
             }
             console.log('444');
             numrows += results.length;
+            console.log(req.body);
+            console.log(numrows);
             if (parseInt(numrows) > 0) {
                 console.log('555');
                 //res.status(400).send(JSON.stringify({ "status": 400, "message": "User is Already Registered" }));
                 callback(false);
+            } else {
+                callback(true);
             }
         });
     },
     checkAvailCust: function (req, res) {
         var numrows = 0;
         let msql = "Select * FROM customers WHERE CustomerID='" + req.params.id + "'";
-        console.log(msql);
         conn.query(msql, (err, results) => {
             if (err) {
                 res.send(JSON.stringify({ "status": 400, "error": err }));
