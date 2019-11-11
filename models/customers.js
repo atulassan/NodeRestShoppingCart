@@ -48,28 +48,38 @@ router.post('/api/v1/customers', (req, res) => {
     var Password = utls.saltHashPassword(req.body.PassWord, true);
 
     //Check Available User
-    utls.checkAvailUser(req, res);
-
-    let data = {
-        FirstName: req.body.FirstName,
-        LastName: req.body.LastName,
-        Phone: req.body.Phone,
-        Email: req.body.Email,
-        UserName: req.body.UserName,
-        PassWord: Password[1],
-        Token: Password[0],
-        Status: req.body.Status
-    };
-
-    let sql = "INSERT INTO customers SET ?";
-    let query = conn.query(sql, data, (err, results) => {
-        if (err) {
-            console.log("error ocurred", err);
-            res.send(JSON.stringify({ "status": 400, "error": err }));
+    utls.checkAvailUser(req, res, function(response) {
+        console.log('666');
+        if(response) {
+            console.log('777');
+            let indata = {
+                FirstName: req.body.FirstName,
+                LastName: req.body.LastName,
+                Phone: req.body.Phone,
+                Email: req.body.Email,
+                UserName: req.body.UserName,
+                PassWord: Password[1],
+                Token: Password[0],
+                Status: req.body.Status
+            };
+        
+            let sql = "INSERT INTO customers SET ?";
+            let query = conn.query(sql, indata, (err, results) => {
+                if (err) {
+                    console.log("error ocurred", err);
+                    res.send(JSON.stringify({ "status": 400, "error": err }));
+                } else {
+                    res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+                }
+            });
         } else {
-            res.send(JSON.stringify({ "status": 200, "error": null, "response": results }));
+            console.log('888');
+            res.send(JSON.stringify({ "status": 400, "message": "User is Already Registered" }));
         }
+        console.log('999');
     });
+
+    
 
 });
 

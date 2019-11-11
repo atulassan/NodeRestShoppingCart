@@ -4,7 +4,7 @@ var config = {
 	db: {
 		host: '192.168.1.99', 	// database host
 		user: 'root', 		// your database username
-		password: '', 		// your database password
+		password: "", 		// your database password
 		port: 3306, 		// default MySQL port
 		db: 'at_nodrestapi', 		// your database name
 		charset: 'utf8_general_ci' // charset
