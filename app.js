@@ -43,32 +43,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Parse JSON bodies (as sent by API clients)
 app.use(bodyParser.json());
 
-
-/*var transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: "freecoderhub@gmail.com",
-        pass: "freecoder19c$&"
-    }
-});
-
-var mailOptions = {
-    from: 'freecoderhub@gmail.com',
-    to : 'atulassan777@gmail.com',
-    subject : "Testing",
-    text : "Testing"
- }
- 
- transport.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  }); */
-
 app.get('/', function (req, res) {
     console.log(conn);
 

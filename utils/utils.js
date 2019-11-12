@@ -8,7 +8,8 @@ utls = {
         var pswd = '';
         var slth = [];
         let Salt = crypto.randomBytes(16).toString('base64');
-        let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
+        //let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
+        let Hash = crypto.createHmac('sha512', 'CzbhzaR9DU6UCRd2ez4ecA==').update(password).digest("base64");
         if (slt) {
             slth.push(Salt);
             slth.push(Salt + "$" + Hash);
