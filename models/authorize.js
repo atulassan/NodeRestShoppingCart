@@ -22,13 +22,29 @@ Authorize = {
                 if (usrAvail >= 0) {
                     var userPassword = utls.saltHashPassword(results[0].PassWord, false);
                     if (userPassword[1] === Password[1]) {
-                        console.log('matched');
+
+                        let customer = {
+                            CustomerID: results[0].CustomerID,
+                            Email: results[0].Email,
+                            Token: results[0].Token
+                        };
+
+                        // create a token
+                        jwt.sign(customer, results[0].Token, { expiresIn: 86400 }, (err, token) => {
+
+                            if (err) {
+                                res.send(JSON.stringify({ "status": 200, "Token": 'Expiry' }));
+                            } else {
+                                res.send(JSON.stringify({ "status": 200, "Token": token }));
+                            }
+
+                        });
+
+                    } else {
+                        res.send(JSON.stringify({ "status": 200, "error": null, "response": "Password Is not Valid" }));
                     }
-                    /*console.log(Password);
-                    console.log(userPassword);
-                    console.log(results[0].PassWord);*/
                 } else {
-                    res.send(JSON.stringify({ "status": 200, "error": null, "response": "User Cant Be login, Check your Credentials" }));
+                    res.send(JSON.stringify({ "status": 200, "error": null, "response": "User Can't Be Find, Check your Credentials" }));
                 }
             }
         });
