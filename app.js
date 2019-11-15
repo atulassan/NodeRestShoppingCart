@@ -50,6 +50,11 @@ app.get('/', function (req, res) {
     res.json({ ktm: "bike" });
 });
 
+app.get('/check', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ ktm: "bike" });
+});
+
 //route Model
 //var customers = require('./models/customers');
 //var categories = require('./models/categories');
@@ -65,6 +70,7 @@ var cnc = require('./routes/index');
 app.use(morgan('dev')); //develop morgan
 app.use(compression()); // Compress all Responses
 app.use(cnc); // Site Routes
+
 
 // Assigning Port
 app.listen(port, function () {

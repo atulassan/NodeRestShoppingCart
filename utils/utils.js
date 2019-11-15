@@ -4,19 +4,23 @@ utls = {
     verify: function (b1 = "") {
         return b1;
     },
-    saltHashPassword: function (password, slt = TRUE) {
+    saltHashPassword: function (password, pslt=null, slt=true) {
         var pswd = '';
         var slth = [];
         let Salt = crypto.randomBytes(16).toString('base64');
         //let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
-        let Hash = crypto.createHmac('sha512', 'CzbhzaR9DU6UCRd2ez4ecA==').update(password).digest("base64");
-        if (slt) {
+        let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
+        if (pslt==''|| pslt == null) {
             slth.push(Salt);
             slth.push(Salt + "$" + Hash);
         } else {
-            var splt = password.split('$');
-            slth.push(splt[0]);
-            slth.push(splt[1]);
+            if(slt) {
+                var splt = password.split('$');
+                slth.push(splt[0]);
+                slth.push(splt[1]);
+            } else {
+                slth.push(pslt + "$" + Hash);
+            }
         }
         return slth;
     },

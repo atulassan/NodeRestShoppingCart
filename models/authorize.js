@@ -30,7 +30,7 @@ Authorize = {
                         };
 
                         // create a token
-                        jwt.sign(customer, results[0].Token, { expiresIn: 86400 }, (err, token) => {
+                        jwt.sign({ customer }, "x8JVjyY8rNZ24LVy9mvsuA==", { expiresIn: 86400 }, (err, token) => {
 
                             if (err) {
                                 res.send(JSON.stringify({ "status": 200, "Token": 'Expiry' }));
@@ -54,6 +54,14 @@ Authorize = {
     },
     logout() {
         console.log('Logout');
+    },
+    check: function (req, res) {
+
+        console.log(req.headers);
+
+        // read the token from header or url 
+        //const token = req.headers['x-access-token'] || req.query.token
+        console.log('check');
     }
 }
 
