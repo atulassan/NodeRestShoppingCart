@@ -4,24 +4,27 @@ utls = {
     verify: function (b1 = "") {
         return b1;
     },
-    saltHashPassword: function (password, pslt=null, slt=true) {
+    saltHashPassword: function (password, pslt='', slt=true) {
         var pswd = '';
         var slth = [];
         let Salt = crypto.randomBytes(16).toString('base64');
         //let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
         let Hash = crypto.createHmac('sha512', Salt).update(password).digest("base64");
-        if (pslt==''|| pslt == null) {
+        
+        if(slt) {
             slth.push(Salt);
             slth.push(Salt + "$" + Hash);
-        } else {
-            if(slt) {
+         } else {
+            if (pslt==''|| pslt == null || typeof(pslt) == 'undefined') {
                 var splt = password.split('$');
                 slth.push(splt[0]);
                 slth.push(splt[1]);
             } else {
+                Hash = crypto.createHmac('sha512', pslt).update(password).digest("base64");
+                slth.push(pslt);
                 slth.push(pslt + "$" + Hash);
             }
-        }
+         }
         return slth;
     },
     getToken: function () {

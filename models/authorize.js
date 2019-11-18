@@ -11,8 +11,8 @@ Authorize = {
         let sql = "Select * From Customers Where Email='" + req.body.Email + "'";
         let query = conn.query(sql, (err, results) => {
 
-            var pswd = utls.saltHashPassword(req.body.PassWord, true);
-            var Password = pswd[1].split('$');
+            //var pswd = utls.saltHashPassword(req.body.PassWord, true);
+            //var Password = pswd[1].split('$');
 
             if (err) {
                 console.log('Error Triggered', err);
@@ -20,8 +20,8 @@ Authorize = {
                 usrAvail += results.length;
                 console.log(usrAvail);
                 if (usrAvail >= 0) {
-                    var userPassword = utls.saltHashPassword(results[0].PassWord, false);
-                    if (userPassword[1] === Password[1]) {
+                    var userPassword = utls.saltHashPassword(req.body.PassWord, results[0].Token, false);
+                    if (userPassword[1] === results[0].PassWord) {
 
                         let customer = {
                             CustomerID: results[0].CustomerID,

@@ -7,7 +7,7 @@ Customers = {
 
     create: function (req, res) {
 
-        var Password = utls.saltHashPassword(req.body.PassWord, true);
+        var Password = utls.saltHashPassword(req.body.PassWord, 'nalGjfU/8nNj4ac8ZdxIXA==', false);
 
         //Check Available User
         utls.checkAvailUser(req, res, function (response) {
